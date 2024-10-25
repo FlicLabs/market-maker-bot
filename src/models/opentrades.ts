@@ -1,4 +1,4 @@
-import mongoose, {Model, Schema} from 'mongoose'; 
+import mongoose, { Model, Schema } from 'mongoose';
 import { IOpenTrade } from '../types/types';
 
 export const openTradeSchema: Schema<IOpenTrade> = new mongoose.Schema({
@@ -31,21 +31,21 @@ export const openTradeSchema: Schema<IOpenTrade> = new mongoose.Schema({
         type: Number,
         required: true
     },
-    timeStamp: {
-        type: Number,
-        required: true
-    },
     tokenPrice: {
         type: Number,
         required: true
     },
     tokenDecimal: {
         type: Number,
+        required: false
+    },
+    timeStamp: {
+        type: Number,
         required: true
     }
 }, {
     timestamps: true  
-}) ;
+});
 
 const OpenTrades: Model<IOpenTrade> = mongoose.model<IOpenTrade>('opentrades', openTradeSchema);
 

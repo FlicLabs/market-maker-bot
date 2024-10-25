@@ -47,7 +47,7 @@ export const distributeSol = async (
         solAmount = ADDITIONAL_FEE + BUY_UPPER_AMOUNT;
 
       const wallet = Keypair.generate();
-      wallets.push({ kp: wallet, buyAmount: solAmount });
+      wallets.push({ kp: wallet, buyAmount: solAmount }); //---REDUNDANCY----(REMOVE IT or modify the code)// 
 
       sendSolTx.push(
         SystemProgram.transfer({
@@ -57,6 +57,7 @@ export const distributeSol = async (
         })
       );
     }
+ 
 
     let index = 0;
     while (true) {
@@ -82,6 +83,7 @@ export const distributeSol = async (
           lastValidBlockHeight: latestBlockhash.lastValidBlockHeight,
           blockhash: latestBlockhash.blockhash,
         });
+        
         if (confirmation.value.err) {
           console.log("Confrimtaion error");
           return "";
@@ -264,3 +266,4 @@ export function readJson(filename: string = "data.json"): Data[] {
 export function writeJson(data: Data[], filename: string = "data.json"): void {
   fs.writeFileSync(filename, JSON.stringify(data, null, 4), "utf-8");
 }
+

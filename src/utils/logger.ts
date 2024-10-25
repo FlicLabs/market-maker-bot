@@ -1,4 +1,4 @@
-import winston from 'winston'
+import * as winston from 'winston'
 const {combine,timestamp,printf,cli} = winston.format
 
 export const logger = winston.createLogger({
@@ -41,6 +41,5 @@ export const transactionLogger = winston.createLogger({
         }),
     ],
 });
-
 
 

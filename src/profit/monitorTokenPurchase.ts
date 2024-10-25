@@ -16,9 +16,9 @@ type TokenMonitor = {
     initialPrice: number;
     trades: Set<string>; // Set of wallet addresses trading this token
     cleanup: () => void;
-};
+};///come again
 
-// Create primary wallet from private key
+
 const primaryWallet = Keypair.fromSecretKey(bs58.decode(process.env.WALLET_PRIVATE_KEY || ''));
 
 // Connect to MongoDB
@@ -36,7 +36,7 @@ async function processTrade(trade : IOpenTrade , newTokenBalance : number , newS
 
     // Check if token difference is less than minimum token difference to sell
     if (tokenDifference < -minTokenDifferenceToSell) {
-        // Check if sol difference is greater than minimum sol difference to sell
+        
         if (solDifference > MIN_SOL_DIFFERENCE_TO_SELL) { // 1 sol difference to sell
             logger.info(`Token sold by ${trade.walletAddress}. Selling remaining tokens.`);
             await sellAndRecordTrade(trade, `Token sold by ${trade.walletAddress}`);
@@ -153,7 +153,7 @@ async function monitorWalletsForTokenPurchase() {
         pendingBalanceChanges.set(walletAddress, pending);
     
         if (pending.newTokenBalance !== undefined) {
-            await processTradeWithNewBalances(walletAddress);
+            await processTradeWithNewBalances(walletAddress);//come again
         }
     }
     
@@ -227,7 +227,7 @@ async function monitorWalletsForTokenPurchase() {
     listener.on('tokenBalanceChanged', handleTokenBalanceChange);
     listener.on('solBalanceChanged', handleSolBalanceChange);
 
-    // Main loop to monitor token purchases
+    // Main loop 
     while (true) {
         try {
             const openTrades = await readOpenTrades();
@@ -286,7 +286,7 @@ async function monitorWalletsForTokenPurchase() {
                         monitor.trades.delete(walletAddress);
                     }
                     
-                    // Clean up empty token monitors
+                    
                     for (const [tokenAddress, monitor] of tokenMonitors.entries()) {
                         if (monitor.trades.size === 0) {
                             monitor.cleanup();
@@ -315,3 +315,4 @@ process.on('SIGINT', () => {
 });
 
 monitorWalletsForTokenPurchase().catch(console.error);
+

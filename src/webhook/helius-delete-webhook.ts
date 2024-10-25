@@ -21,4 +21,3 @@ export const deleteWebhook = async (id: string) => {
     console.error("Error:", e);
   }
 };
-
